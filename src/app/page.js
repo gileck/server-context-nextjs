@@ -1,6 +1,7 @@
 import Comp1 from "@/app/Comp1";
 import { AppContext } from "./AppContext.js";
 import { headers } from 'next/headers'
+import { AsyncComp } from "@/app/Comp1";
 
 export default async function Home() {
     const headersList = await headers()
@@ -16,6 +17,10 @@ export default async function Home() {
         <AppContext.Provider value={{url: 'put here what even you want and it will work', someOtherValue: 'someOtherValue'}}>
             <Comp1 />
         </AppContext.Provider>
+        <AppContext.Provider value={{value: 'async value'}}>
+            <AsyncComp />
+        </AppContext.Provider>
+
     </div>
   );
 }
