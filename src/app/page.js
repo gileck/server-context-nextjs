@@ -3,21 +3,25 @@ import { AppContext } from "./AppContext.js";
 import { headers } from 'next/headers'
 import { AsyncComp } from "@/app/Comp1";
 
-export default async function Home() {
-    const headersList = await headers()
-    const referer = headersList.get('referer')
+export default async function Home({searchParams}) {
+    // console.log({searchParams})
+    const query = await searchParams
+    console.log({query})
+    // const headersList = await headers()
+    // const referer = headersList.get('host')
+    // console.log({referer})
   return (
     <div>
-        <AppContext.Provider value={{url: referer}}>
+        <AppContext.Provider value={{query}}>
             <Comp1 />
         </AppContext.Provider>
-        <AppContext.Provider value={{url: 'xxxx'}}>
+        <AppContext.Provider value={{query}}>
             <Comp1 />
         </AppContext.Provider>
-        <AppContext.Provider value={{url: 'put here what even you want and it will work', someOtherValue: 'someOtherValue'}}>
+        <AppContext.Provider value={{query, someOtherValue: 'someOtherValue'}}>
             <Comp1 />
         </AppContext.Provider>
-        <AppContext.Provider value={{value: 'async value'}}>
+        <AppContext.Provider value={{value: 'async value', query}}>
             <AsyncComp />
         </AppContext.Provider>
 
