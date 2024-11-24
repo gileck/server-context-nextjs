@@ -22,24 +22,24 @@ export default function Comp1() {
 }
 
 
-const wait = () => new Promise(resolve => setTimeout(resolve, 1000))
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 export async function AsyncComp() {
-    await wait()
+    await wait(500)
     const {value} = useContext()
     return <div>
         <div>AsyncComp: {value}</div>
         <AppContext.Provider value={{value: 'override async value 1'}}>
-            <Comp2 />
+            <Comp2 waitFor={1000} />
         </AppContext.Provider>
         <AppContext.Provider value={{value: 'override async value 2'}}>
-            <Comp2 />
+            <Comp2 waitFor={500}/>
         </AppContext.Provider>
     </div>
 }
 
-async function Comp2() {
-    await wait()
+async function Comp2(ms) {
+    await wait(ms)
     const {value} = useContext()
 
     return <div>Comp2: {value}</div>
